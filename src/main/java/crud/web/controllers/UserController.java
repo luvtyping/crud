@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Controller()
+@Controller
 @RequestMapping("/users")
 public class UserController {
     private final UserDaoImpl userDao;
