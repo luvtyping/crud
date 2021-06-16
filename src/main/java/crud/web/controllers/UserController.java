@@ -1,5 +1,6 @@
 package crud.web.controllers;
 
+import crud.web.Exceptions.WrongEmailException;
 import crud.web.dao.UserDaoImpl;
 import crud.web.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +40,14 @@ public class UserController {
 
     @PostMapping()
     public String create(@ModelAttribute @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+        try {
+            if (bindingResult.hasErrors()) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
             return "create";
-
+        }
         userDao.save(user);
         return "redirect:/users";
     }
@@ -54,8 +60,13 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public String update(@PathVariable int id, @ModelAttribute @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+        try {
+            if (bindingResult.hasErrors())
+                throw new WrongEmailException();
+        } catch (WrongEmailException e) {
+            System.out.println("Unacceptable Email Exception");
             return "edit";
+        }
 
         userDao.update(id, user);
         return "redirect:/users";

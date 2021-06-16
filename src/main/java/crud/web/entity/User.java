@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -13,15 +12,18 @@ import javax.validation.constraints.NotEmpty;
 public class User {
     private int id;
 
-    @NotEmpty(message = "Enter name")
+    @NotEmpty(message = "Empty name")
     private String name;
 
-    @NotEmpty(message = "Enter surname")
+    @NotEmpty(message = "Empty surname")
     private String surname;
 
     @Min(value = 0, message = "Age should be greater than 0")
+//    @Pattern(regexp = "^[0-9]+$", message = "Should be only digits greater than 0")
+    @NotNull
+//    @Size(min = 1, max = 3)
     private int age;
 
-    @NotEmpty(message = "Enter email")
+    @Pattern(regexp = ".+((@mail.ru)|(gmail.com))", message = "Unacceptable Email - either: @mail.ru or gmail.com")
     private String email;
 }
